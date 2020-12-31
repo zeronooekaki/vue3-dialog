@@ -43,7 +43,7 @@ export const DialogResult = {
 
 export class DialogData {
     public zindex: number;
-    public isShow: Boolean;
+    public isShow: boolean;
     public title: string;
     public message: string;
     public dialogOption: IDialogOption;
