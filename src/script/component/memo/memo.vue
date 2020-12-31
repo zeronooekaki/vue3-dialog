@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, reactive, PropType  } from "vue";
+import { defineComponent, reactive, ref, PropType, nextTick, watch } from "vue";
 import { DialogData } from "@/component/vue-dialog/vue-dialog.ts";
 export default defineComponent({
     props: {
@@ -9,14 +9,33 @@ export default defineComponent({
         },
     },
     setup(props, { emit }) {
-        const cancel  = () => {
+
+
+        const chancel = () => {
             if (props.data.dialogOption.cancel.isShow) {
                 props.data.cancelClick();
             }
         };
+
+
+        const messageShow = (value:any) => {
+        
+        };
+
+
+
+
+        const hoge =ref('');
+        hoge.value="";
+
+        const fuge = (value:any) => {
+         console.log(value)
+        };
         return {
             props,
-            cancel 
+            chancel,
+            fuge,
+            hoge,
         }
     },
 });
@@ -24,28 +43,14 @@ export default defineComponent({
 
 <template>
 <div class="dialogContainer" :class="{'closed':!props.data.isShow,'isShowCancel':props.data.dialogOption.cancel.isShow}" :style="{'z-index': props.data.zindex}">
-    <div class="dialogBackGround" @click.stop="cancel " v-show="props.data.isShow">
-    </div>
-    <div class="dialogCardContainer" @click.stop="cancel ">
-        <div class="dialogCard">
-            <div class="dialogCard--header">
-                <div class="title">{{props.data.title}}</div>
-                <button type="button" class="closeBtn" @click.stop="cancel" v-if="props.data.dialogOption.cancel.isShow">
-                    <i class="fas fa-times"></i> {{props.data.dialogOption.cancel.label}}
-                </button>
-            </div>
-            <div class="dialogCard--body">
-                <div class="message">{{props.data.message}}</div>
-                <div class="btnContainer">
-                    <button class="resultBtn" :style="{'order':props.data.dialogOption.isRightBottonYes==true?0:1}"
-                     v-if="props.data.dialogOption.no.isShow" @click.stop="props.data.noClick()">
-                        {{props.data.dialogOption.no.label}}</button>
-                    <button class="resultBtn" :style="{'order':props.data.dialogOption.isRightBottonYes==true?1:0}"
-                     v-if="props.data.dialogOption.yes.isShow" @click.stop="props.data.yesClick()">{{props.data.dialogOption.yes.label}}</button>
-                </div>
-            </div>
-        </div>
-    </div>
+   
+   
+   
+    <my-dialog
+      @myEvent="fuge" 
+     :hoge="hoge">
+    </my-dialog>
+   
 </div>
 </template>
 
